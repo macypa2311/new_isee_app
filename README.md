@@ -1,16 +1,22 @@
-# nwe_isee_app
+# Projektübersicht: Neue ISEE App
 
-A new Flutter project.
+**Ziel:** Rollenbasierte Steuerungs-App für PV (Photovoltaik) und WP (Wärmepumpe) mit zentralem Theme (Hell/Dunkel), Login mit Rollen, Geräteübersichten und Fehleranzeige.
 
-## Getting Started
+## Hauptfunktionen
+- Anmeldung mit Rollen: Superadmin, Admin, Installateur, Planer, Endkunde  
+- Globaler Hell/Dunkel-Modus mit Persistenz  
+- Rollenbasierte Startseite (Landingpage) mit individuellen Kacheln  
+- Geräteübersichten für PV und WP, inklusive Fehlerstatus  
+- Einstellungen (z. B. Theme)  
+- Wiederverwendbares Design-System (Textstile, Farben)
 
-This project is a starting point for a Flutter application.
+## Struktur (Kurz)
+- `lib/kern/`: Infrastruktur (Thema, Auth, App-Start, gemeinsame Widgets)  
+- `lib/funktionen/`: Feature-Seiten (Login, Landing, Geräte etc.)  
+- `lib/geteilte/`: Enums und Rollenmodelle  
+- `docs/`: Projektdokumentation  
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Schnellstart
+```bash
+flutter pub get
+flutter run
