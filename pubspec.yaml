@@ -16,7 +16,11 @@ dependencies:
   provider: ^6.1.5
   url_launcher: ^6.1.7
   flutter_secure_storage: ^8.0.0
-
+  image_picker: ^0.8.7+3
+  syncfusion_flutter_pdfviewer: ^30.1.42
+  fl_chart: ^0.64.0
+  table_calendar: ^3.0.9
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

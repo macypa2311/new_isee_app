@@ -3,8 +3,15 @@ import 'package:provider/provider.dart';
 
 import '../../kern/auth/auth_controller.dart';
 import '../../kern/theme/thema_controller.dart';
-import '../../widgets/settings_sheet.dart';
 import '../../widgets/dashboard_components.dart';
+import '../settings/settings_menu.dart';
+
+import '../../fragments/diagnose_pv_fragment.dart';
+import '../../fragments/pdf_viewer_fragment.dart';
+import '../../fragments/verbrauch_fragment.dart';
+import '../../fragments/ki_kamera_fragment.dart';
+import '../../fragments/tools_fragment.dart';
+import '../../fragments/einstellungen_fragment.dart';
 
 class LandingPagePlaner extends StatelessWidget {
   const LandingPagePlaner({super.key});
@@ -23,68 +30,76 @@ class LandingPagePlaner extends StatelessWidget {
         : Colors.grey.shade300;
     final textColor = brightness == Brightness.dark ? Colors.white : Colors.black;
 
-    final planerCards = [
+    final cards = [
       DashboardCardData(
-        id: 'mail',
-        title: 'Mail',
-        icon: Icons.mail,
-        count: 0,
+        id: 'diagnose',
+        title: 'Fehlerdiagnose',
+        icon: Icons.warning,
         onTap: () {
-          // TODO: Navigation zum Mail-Fragment ergänzen
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const DiagnosePVFragment()),
+          );
         },
       ),
       DashboardCardData(
-        id: 'planung_pv',
-        title: 'Planung PV',
-        icon: Icons.electrical_services,
-        count: 0,
+        id: 'verbrauch',
+        title: 'Verbrauchsanalyse',
+        icon: Icons.bolt,
         onTap: () {
-          // TODO: Navigation zur PV-Planung ergänzen
-        },
-      ),
-      DashboardCardData(
-        id: 'planung_wp',
-        title: 'Planung Wärmepumpe',
-        icon: Icons.ac_unit,
-        count: 0,
-        onTap: () {
-          // TODO: Navigation zur Wärmepumpen-Planung ergänzen
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const VerbrauchFragment()),
+          );
         },
       ),
       DashboardCardData(
         id: 'kamera',
-        title: 'Kamera',
+        title: 'Kamera-KI',
         icon: Icons.camera_alt,
-        count: 0,
         onTap: () {
-          // TODO: Navigation zur Kamera ergänzen
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const KameraKiFragment()),
+          );
         },
       ),
       DashboardCardData(
-        id: 'angebote',
-        title: 'Angebote',
-        icon: Icons.receipt_long,
-        count: 0,
+        id: 'tools',
+        title: 'Werkzeuge',
+        icon: Icons.build,
         onTap: () {
-          // TODO: Navigation zu Angeboten ergänzen
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const ToolsFragment()),
+          );
         },
       ),
       DashboardCardData(
-        id: 'todo',
-        title: 'To-Do',
-        icon: Icons.checklist,
-        count: 0,
+        id: 'pdf',
+        title: 'PDF-Hilfe',
+        icon: Icons.picture_as_pdf,
         onTap: () {
-          // TODO: Navigation zu To-Do ergänzen
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => const PdfViewerFragment(
+                title: 'Planer-Hilfe',
+                pdfUrl: 'https://example.com/planer.pdf',
+              ),
+            ),
+          );
         },
       ),
       DashboardCardData(
-        id: 'kunden',
-        title: 'Kunden',
-        icon: Icons.people,
-        count: 0,
+        id: 'einstellungen',
+        title: 'Einstellungen',
+        icon: Icons.settings,
         onTap: () {
-          // TODO: Navigation zu Kunden ergänzen
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const EinstellungenFragment()),
+          );
         },
       ),
     ];
@@ -92,73 +107,34 @@ class LandingPagePlaner extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        title: Text(
-          'Dashboard',
-          style: TextStyle(color: textColor),
-        ),
+        title: Text('Planer Dashboard', style: TextStyle(color: textColor)),
         iconTheme: IconThemeData(color: textColor),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                builder: (_) => const SettingsSheet(),
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const SettingsMenu()),
               );
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.logout),
-            tooltip: 'Abmelden',
-            onPressed: () async {
-              await auth.logout();
             },
           ),
         ],
       ),
-      body: Builder(
-        builder: (_) {
-          Widget cardWidget;
-          switch (thema.layoutMode) {
-            case LayoutMode.carousel:
-              cardWidget = CustomerCarousel(
-                cards: planerCards,
-                background: backgroundColor,
-                borderColor: borderColor,
-              );
-              break;
-            case LayoutMode.grid:
-            default:
-              cardWidget = GridView.count(
-                crossAxisCount: thema.gridCount,
-                crossAxisSpacing: 12,
-                mainAxisSpacing: 12,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                children: planerCards
-                    .map((card) => DashboardCardCompact(
-                          data: card,
-                          background: backgroundColor,
-                          borderColor: borderColor,
-                        ))
-                    .toList(),
-              );
-          }
-          return Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Willkommen',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
-                ),
-                const SizedBox(height: 20),
-                Expanded(child: cardWidget),
-              ],
-            ),
-          );
-        },
+      body: Padding(
+        padding: const EdgeInsets.all(12),
+        child: GridView.count(
+          crossAxisCount: thema.gridCount,
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 12,
+          children: cards
+              .map((card) => DashboardCardCompact(
+                    data: card,
+                    background: backgroundColor,
+                    borderColor: borderColor,
+                  ))
+              .toList(),
+        ),
       ),
     );
   }

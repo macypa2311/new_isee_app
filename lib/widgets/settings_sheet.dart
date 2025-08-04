@@ -9,7 +9,9 @@ class SettingsSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final thema = context.watch<ThemaController>();
-    final isGrid = thema.layoutMode == LayoutMode.grid;
+    // Da Karussell weg, layoutMode ist immer grid
+    // final isGrid = thema.layoutMode == LayoutMode.grid;
+    final isGrid = true;
 
     return Padding(
       padding: const EdgeInsets.all(16),
@@ -18,7 +20,7 @@ class SettingsSheet extends StatelessWidget {
         children: [
           const Text('Darstellung', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
 
-          // Modus
+          // Modus (Hell / Dunkel)
           Row(
             children: [
               const Text('Modus:'),
@@ -62,53 +64,35 @@ class SettingsSheet extends StatelessWidget {
             ],
           ),
 
-          // Ansicht
-          Row(
+          // **Ansicht rausgenommen** (Karussell / Kachel)
+
+          // Kachelgröße (2 oder 3 pro Reihe)
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Ansicht:'),
-              const SizedBox(width: 8),
-              ChoiceChip(
-                label: const Text('Karussell'),
-                selected: thema.layoutMode == LayoutMode.carousel,
-                onSelected: (_) => thema.setLayoutMode(LayoutMode.carousel),
-              ),
-              const SizedBox(width: 8),
-              ChoiceChip(
-                label: const Text('Kacheln'),
-                selected: thema.layoutMode == LayoutMode.grid,
-                onSelected: (_) => thema.setLayoutMode(LayoutMode.grid),
+              const Text('Kachelgröße:'),
+              const SizedBox(height: 6),
+              Wrap(
+                spacing: 8,
+                children: [
+                  ChoiceChip(
+                    label: const Text('2 pro Reihe'),
+                    selected: thema.gridCount == 2,
+                    visualDensity: VisualDensity.compact,
+                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                    onSelected: (_) => thema.setGridCount(2),
+                  ),
+                  ChoiceChip(
+                    label: const Text('3 pro Reihe'),
+                    selected: thema.gridCount == 3,
+                    visualDensity: VisualDensity.compact,
+                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                    onSelected: (_) => thema.setGridCount(3),
+                  ),
+                ],
               ),
             ],
           ),
-
-          // Kachelgröße – Kompakt und in Wrap statt Row
-          if (isGrid)
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text('Kachelgröße:'),
-                const SizedBox(height: 6),
-                Wrap(
-                  spacing: 8,
-                  children: [
-                    ChoiceChip(
-                      label: const Text('2 pro Reihe'),
-                      selected: thema.gridCount == 2,
-                      visualDensity: VisualDensity.compact,
-                      padding: const EdgeInsets.symmetric(horizontal: 6),
-                      onSelected: (_) => thema.setGridCount(2),
-                    ),
-                    ChoiceChip(
-                      label: const Text('3 pro Reihe'),
-                      selected: thema.gridCount == 3,
-                      visualDensity: VisualDensity.compact,
-                      padding: const EdgeInsets.symmetric(horizontal: 6),
-                      onSelected: (_) => thema.setGridCount(3),
-                    ),
-                  ],
-                ),
-              ],
-            ),
 
           const SizedBox(height: 8),
           TextButton(

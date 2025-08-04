@@ -3,12 +3,21 @@ import 'package:provider/provider.dart';
 
 import '../../kern/auth/auth_controller.dart';
 import '../../kern/theme/thema_controller.dart';
-import '../../widgets/settings_sheet.dart';
 import '../../widgets/dashboard_components.dart';
 
-import '../startseite/landing_installateur.dart';
-import '../startseite/landing_planer.dart';
+import '../startseite/landing_planer.dart' as planer;
+import '../startseite/landing_installateur.dart' as installateur;
 import '../startseite/landing_endkunde.dart';
+import '../settings/settings_menu.dart';
+
+import '../../fragments/mail_fragment.dart';
+import '../../fragments/kontakt_fragment.dart';
+import '../../fragments/pdf_viewer_fragment.dart';
+import '../../fragments/nutzerverwaltung.dart';
+import '../../fragments/backup_fragment.dart';
+import '../../fragments/tools_fragment.dart';
+import '../../fragments/statistik_fragment.dart';
+import '../../fragments/einstellungen_fragment.dart';
 
 class LandingAdmin extends StatelessWidget {
   const LandingAdmin({super.key});
@@ -16,7 +25,6 @@ class LandingAdmin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final thema = context.watch<ThemaController>();
-    final auth = context.read<AuthController>();
     final brightness = Theme.of(context).brightness;
 
     final backgroundColor = brightness == Brightness.dark
@@ -27,28 +35,26 @@ class LandingAdmin extends StatelessWidget {
         : Colors.grey.shade300;
     final textColor = brightness == Brightness.dark ? Colors.white : Colors.black;
 
-    final exampleCards = [
+    final primaryCards = [
       DashboardCardData(
         id: 'planer',
         title: 'Planer',
         icon: Icons.engineering,
-        count: 3,
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => const LandingPagePlaner()),
+            MaterialPageRoute(builder: (_) => const planer.LandingPagePlaner()),
           );
         },
       ),
       DashboardCardData(
         id: 'installateur',
         title: 'Installateur',
-        icon: Icons.person,
-        count: 1,
+        icon: Icons.handyman,
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => const LandingPageInstallateur()),
+            MaterialPageRoute(builder: (_) => const installateur.LandingPageInstallateur()),
           );
         },
       ),
@@ -56,7 +62,6 @@ class LandingAdmin extends StatelessWidget {
         id: 'endkunde',
         title: 'Endkunde',
         icon: Icons.home,
-        count: 0,
         onTap: () {
           Navigator.push(
             context,
@@ -64,34 +69,96 @@ class LandingAdmin extends StatelessWidget {
           );
         },
       ),
+    ];
+
+    final otherCards = [
       DashboardCardData(
         id: 'mail',
         title: 'Mail',
         icon: Icons.mail,
-        count: 0,
         onTap: () {
-          // TODO: Navigation zum Mail-Fragment ergänzen
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const MailFragment()),
+          );
         },
       ),
       DashboardCardData(
-        id: 'hersteller',
-        title: 'Hersteller',
+        id: 'kontakt',
+        title: 'Hersteller-Kontakte',
         icon: Icons.factory,
-        count: 0,
         onTap: () {
-          // TODO: Navigation zum Hersteller-Fragment ergänzen
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const KontaktFragment()),
+          );
         },
       ),
       DashboardCardData(
         id: 'pdf',
         title: 'PDF-Verwaltung',
         icon: Icons.picture_as_pdf,
-        count: 0,
         onTap: () {
-          // TODO: Navigation zur PDF-Verwaltung ergänzen
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => const PdfViewerFragment(
+                title: 'PDF-Verwaltung',
+                pdfUrl: 'https://example.com/pdf.pdf',
+              ),
+            ),
+          );
+        },
+      ),
+      DashboardCardData(
+        id: 'nutzer',
+        title: 'Nutzerverwaltung',
+        icon: Icons.manage_accounts,
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => const NutzerverwaltungsFragment(),
+            ),
+          );
+        },
+      ),
+      DashboardCardData(
+        id: 'backup',
+        title: 'Backup & Wiederherstellung',
+        icon: Icons.backup,
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const BackupFragment()),
+          );
+        },
+      ),
+      DashboardCardData(
+        id: 'tools',
+        title: 'Technische Tools',
+        icon: Icons.build,
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const ToolsFragment()),
+          );
+        },
+      ),
+      DashboardCardData(
+        id: 'statistik',
+        title: 'Statistiken',
+        icon: Icons.bar_chart,
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const StatistikFragment()),
+          );
         },
       ),
     ];
+
+    final allCards = [...primaryCards, ...otherCards];
 
     return Scaffold(
       appBar: AppBar(
@@ -104,50 +171,30 @@ class LandingAdmin extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
+            tooltip: 'Einstellungen',
             onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                builder: (_) => const SettingsSheet(),
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const SettingsMenu()),
               );
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.logout),
-            tooltip: 'Abmelden',
-            onPressed: () async {
-              await auth.logout();
             },
           ),
         ],
       ),
-      body: Builder(
-        builder: (_) {
-          switch (thema.layoutMode) {
-            case LayoutMode.carousel:
-              return CustomerCarousel(
-                cards: exampleCards,
-                background: backgroundColor,
-                borderColor: borderColor,
-              );
-            case LayoutMode.grid:
-            default:
-              return Padding(
-                padding: const EdgeInsets.all(12),
-                child: GridView.count(
-                  crossAxisCount: thema.gridCount,
-                  crossAxisSpacing: 12,
-                  mainAxisSpacing: 12,
-                  children: exampleCards
-                      .map((card) => DashboardCardCompact(
-                            data: card,
-                            background: backgroundColor,
-                            borderColor: borderColor,
-                          ))
-                      .toList(),
-                ),
-              );
-          }
-        },
+      body: Padding(
+        padding: const EdgeInsets.all(12),
+        child: GridView.count(
+          crossAxisCount: thema.gridCount,
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 12,
+          children: allCards
+              .map((card) => DashboardCardCompact(
+                    data: card,
+                    background: backgroundColor,
+                    borderColor: borderColor,
+                  ))
+              .toList(),
+        ),
       ),
     );
   }

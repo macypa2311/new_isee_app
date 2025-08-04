@@ -24,4 +24,20 @@ class AppStrings {
   static const String modellWaehlen = 'Modell wählen';
   static const String fehlercodeEingeben = 'Fehlercode eingeben';
   static const String fehlercodeAnalysieren = 'Fehlercode analysieren';
+  static const String mailFragmentTitle = 'Mail';
+  static const String mailInfo = 'Melde dich mit deiner Udi-Media-Mailadresse an.';
+  static const String mailUserLabel = 'Benutzername';
+  static const String mailPasswordLabel = 'Passwort';
+  static const String mailLoginButton = 'Anmelden';
+static const String mail = 'Mail';
+static const String mailEinleitung = 'Bitte melden Sie sich mit Ihrer UdiMedia-Mailadresse an.';
+static const String mailAdresse = 'E-Mail-Adresse';
+static const String mailPasswort = 'Passwort';
+static const String mailAnmelden = 'Anmelden';
+// Ergänzung in AppStrings
+static const String diagnoseEndkunde = 'Fehleranalyse';
+static const String diagnoseEndkundeEinleitung = 'Hier können Sie als Endkunde grundlegende Fehler analysieren.';
+static const String diagnoseEndkundeHinweis = 'Hinweis:';
+static const String diagnoseEndkundeBeschreibung = 'Diese Analyse ist eine vereinfachte Version. Für technische Details kontaktieren Sie bitte Ihren Installateur.';
+static const String fehlerAnalyseStarten = 'Analyse starten';
 }

@@ -1,10 +1,21 @@
+// lib/funktionen/startseite/landing_endkunde.dart
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../kern/auth/auth_controller.dart';
 import '../../kern/theme/thema_controller.dart';
-import '../../widgets/settings_sheet.dart';
 import '../../widgets/dashboard_components.dart';
+import '../startseite/landing_planer.dart' as planer;
+import '../startseite/landing_installateur.dart' as installateur;
+import '../startseite/landing_admin.dart';
+
+import '../../fragments/einstellungen_fragment.dart';
+import '../../fragments/verbrauch_fragment.dart';
+import '../../fragments/diagnose_endkunde_fragment.dart';
+import '../../fragments/ki_kamera_fragment.dart';
+import '../../fragments/pv_rechner_fragment.dart';
+import '../../fragments/unabhaengigkeits_fragment.dart';
+import '../../fragments/pdf_viewer_fragment.dart';
 
 class LandingPageEndkunde extends StatelessWidget {
   const LandingPageEndkunde({super.key});
@@ -12,7 +23,6 @@ class LandingPageEndkunde extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final thema = context.watch<ThemaController>();
-    final auth = context.read<AuthController>();
     final brightness = Theme.of(context).brightness;
 
     final backgroundColor = brightness == Brightness.dark
@@ -23,124 +33,152 @@ class LandingPageEndkunde extends StatelessWidget {
         : Colors.grey.shade300;
     final textColor = brightness == Brightness.dark ? Colors.white : Colors.black;
 
-    final endkundeCards = [
+    final primaryCards = [
       DashboardCardData(
-        id: 'mail',
-        title: 'Mail',
-        icon: Icons.mail,
-        count: 0,
+        id: 'planer',
+        title: 'Planer',
+        icon: Icons.engineering,
         onTap: () {
-          // TODO: Navigation zum Mail-Fragment ergänzen
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const planer.LandingPagePlaner()),
+          );
         },
       ),
       DashboardCardData(
-        id: 'diagnose_pv',
-        title: 'Diagnose PV',
-        icon: Icons.electrical_services,
-        count: 0,
+        id: 'installateur',
+        title: 'Installateur',
+        icon: Icons.handyman,
         onTap: () {
-          // TODO: Navigation zur PV-Diagnose ergänzen
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const installateur.LandingPageInstallateur()),
+          );
         },
       ),
       DashboardCardData(
-        id: 'status',
-        title: 'Status',
-        icon: Icons.info,
-        count: 0,
+        id: 'admin',
+        title: 'Admin',
+        icon: Icons.admin_panel_settings,
         onTap: () {
-          // TODO: Navigation zum Status ergänzen
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const LandingAdmin()),
+          );
+        },
+      ),
+    ];
+
+    final otherCards = [
+      DashboardCardData(
+        id: 'verbrauch',
+        title: 'Verbrauchsanalyse',
+        icon: Icons.bolt,
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const VerbrauchFragment()),
+          );
         },
       ),
       DashboardCardData(
         id: 'kamera',
         title: 'Kamera',
         icon: Icons.camera_alt,
-        count: 0,
         onTap: () {
-          // TODO: Navigation zur Kamera ergänzen
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const KameraKiFragment()),
+          );
         },
       ),
       DashboardCardData(
-        id: 'tipps',
-        title: 'Tipps',
-        icon: Icons.lightbulb,
-        count: 0,
+        id: 'diagnose',
+        title: 'Fehlerdiagnose',
+        icon: Icons.report_problem,
         onTap: () {
-          // TODO: Navigation zu Tipps ergänzen
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const DiagnoseEndkundeFragment()),
+          );
+        },
+      ),
+      DashboardCardData(
+        id: 'pvRechner',
+        title: 'PV-Rechner',
+        icon: Icons.calculate,
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const PvRechnerFragment()),
+          );
+        },
+      ),
+      DashboardCardData(
+        id: 'unabhaengigkeit',
+        title: 'Unabhängigkeit',
+        icon: Icons.energy_savings_leaf,
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const UnabhaengigkeitsFragment()),
+          );
+        },
+      ),
+      DashboardCardData(
+        id: 'pdf',
+        title: 'PDF-Hilfe',
+        icon: Icons.picture_as_pdf,
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => const PdfViewerFragment(
+                title: 'Endkunden-Hilfe',
+                pdfUrl: 'https://example.com/endkunde.pdf',
+              ),
+            ),
+          );
+        },
+      ),
+      DashboardCardData(
+        id: 'einstellungen',
+        title: 'Einstellungen',
+        icon: Icons.settings,
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const EinstellungenFragment()),
+          );
         },
       ),
     ];
+
+    final allCards = [...primaryCards, ...otherCards];
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: Text(
-          'Dashboard',
+          'Endkundenbereich',
           style: TextStyle(color: textColor),
         ),
         iconTheme: IconThemeData(color: textColor),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                builder: (_) => const SettingsSheet(),
-              );
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.logout),
-            tooltip: 'Abmelden',
-            onPressed: () async {
-              await auth.logout();
-            },
-          ),
-        ],
       ),
-      body: Builder(
-        builder: (_) {
-          Widget cardWidget;
-          switch (thema.layoutMode) {
-            case LayoutMode.carousel:
-              cardWidget = CustomerCarousel(
-                cards: endkundeCards,
-                background: backgroundColor,
-                borderColor: borderColor,
-              );
-              break;
-            case LayoutMode.grid:
-            default:
-              cardWidget = GridView.count(
-                crossAxisCount: thema.gridCount,
-                crossAxisSpacing: 12,
-                mainAxisSpacing: 12,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                children: endkundeCards
-                    .map((card) => DashboardCardCompact(
-                          data: card,
-                          background: backgroundColor,
-                          borderColor: borderColor,
-                        ))
-                    .toList(),
-              );
-          }
-          return Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Willkommen',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
-                ),
-                const SizedBox(height: 20),
-                Expanded(child: cardWidget),
-              ],
-            ),
-          );
-        },
+      body: Padding(
+        padding: const EdgeInsets.all(12),
+        child: GridView.count(
+          crossAxisCount: thema.gridCount,
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 12,
+          children: allCards
+              .map((card) => DashboardCardCompact(
+                    data: card,
+                    background: backgroundColor,
+                    borderColor: borderColor,
+                  ))
+              .toList(),
+        ),
       ),
     );
   }

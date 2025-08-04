@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 enum LayoutMode {
-  carousel,
   grid,
 }
 
@@ -34,7 +33,7 @@ class ThemaController extends ChangeNotifier {
   }
 
   // Layout mode
-  LayoutMode _layoutMode = LayoutMode.carousel;
+  LayoutMode _layoutMode = LayoutMode.grid;
   LayoutMode get layoutMode => _layoutMode;
 
   void setLayoutMode(LayoutMode mode) {
