@@ -21,6 +21,11 @@ class _LoginSeiteState extends State<LoginSeite> {
     try {
       print('Versuche Login mit: ${_user.text} / ${_pass.text}');
       await context.read<AuthController>().login(_user.text.trim(), _pass.text.trim());
+
+      // Login erfolgreich, Fehler zurücksetzen
+      setState(() {
+        _error = null;
+      });
     } catch (_) {
       setState(() {
         _error = "Login fehlgeschlagen";
@@ -72,9 +77,9 @@ class _LoginSeiteState extends State<LoginSeite> {
                         controller: _user,
                         style: const TextStyle(color: Colors.white),
                         decoration: InputDecoration(
-                          labelText: 'Benutzername',
+                          labelText: 'E-Mail',
                           labelStyle: const TextStyle(color: Colors.white70),
-                          prefixIcon: const Icon(Icons.person, color: Colors.white70),
+                          prefixIcon: const Icon(Icons.email, color: Colors.white70),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
                             borderSide: const BorderSide(color: Colors.white54),
@@ -129,19 +134,7 @@ class _LoginSeiteState extends State<LoginSeite> {
                         Text(_error!, style: const TextStyle(color: Colors.redAccent, fontWeight: FontWeight.bold)),
                       ],
                       const SizedBox(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                            tooltip: 'Hell/Dunkel wechseln',
-                            icon: Icon(isDark ? Icons.dark_mode : Icons.light_mode, color: Colors.white),
-                            onPressed: () {
-                              final tc = context.read<ThemaController>();
-                           final thema = context.read<ThemaController>();
-                            },
-                          ),
-                        ],
-                      ),
+                      // Theme Toggle entfernt, da nicht gewünscht
                     ],
                   ),
                 ),

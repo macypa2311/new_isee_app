@@ -25,40 +25,58 @@ void main() {
 class AppStart extends StatelessWidget {
   const AppStart({super.key});
 
+  Future<void> _initAuth(BuildContext context) async {
+    await context.read<AuthController>().tryAutoLogin();
+  }
+
   @override
   Widget build(BuildContext context) {
     final thema = context.watch<ThemaController>();
-    final auth = context.watch<AuthController>();
 
-    Widget home;
-    if (!auth.isLoggedIn) {
-      home = const LoginSeite();
-    } else {
-      switch (auth.rolle) {
-        case Rolle.admin:
-        case Rolle.superadmin:
-          home = const LandingAdmin();
-          break;
-        case Rolle.installateur:
-          home = const LandingPageInstallateur();
-          break;
-        case Rolle.endkunde:
-          home = const LandingPageEndkunde();
-          break;
-        case Rolle.planer:
-          home = const LandingPagePlaner();
-          break;
-        default:
+    return FutureBuilder(
+      future: _initAuth(context),
+      builder: (context, snapshot) {
+        // Während tryAutoLogin läuft: Ladeanzeige oder Splashscreen
+        if (snapshot.connectionState != ConnectionState.done) {
+          return MaterialApp(
+            home: Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            ),
+          );
+        }
+
+        final auth = context.watch<AuthController>();
+        Widget home;
+        if (!auth.isLoggedIn) {
           home = const LoginSeite();
-      }
-    }
+        } else {
+          switch (auth.rolle) {
+            case Rolle.admin:
+            case Rolle.superadmin:
+              home = const LandingAdmin();
+              break;
+            case Rolle.installateur:
+              home = const LandingPageInstallateur();
+              break;
+            case Rolle.endkunde:
+              home = const LandingPageEndkunde();
+              break;
+            case Rolle.planer:
+              home = const LandingPagePlaner();
+              break;
+            default:
+              home = const LoginSeite();
+          }
+        }
 
-    return MaterialApp(
-      title: 'ISEE App',
-      themeMode: thema.modus,
-      theme: DesignSystem.hellesTheme(thema.accentColor),
-      darkTheme: DesignSystem.dunklesTheme(thema.accentColor),
-      home: home,
+        return MaterialApp(
+          title: 'ISEE App',
+          themeMode: thema.modus,
+          theme: DesignSystem.hellesTheme(thema.accentColor),
+          darkTheme: DesignSystem.dunklesTheme(thema.accentColor),
+          home: home,
+        );
+      },
     );
   }
 }

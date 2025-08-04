@@ -17,6 +17,11 @@ class ThemaController extends ChangeNotifier {
     }
   }
 
+  void toggleTheme() {
+    _isDark = !_isDark;
+    notifyListeners();
+  }
+
   // Accent color
   String _accentChoice = 'blue';
   String get accentChoice => _accentChoice;

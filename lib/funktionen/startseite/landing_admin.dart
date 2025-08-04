@@ -4,9 +4,11 @@ import 'package:provider/provider.dart';
 import '../../kern/auth/auth_controller.dart';
 import '../../kern/theme/thema_controller.dart';
 import '../../widgets/settings_sheet.dart';
-import '../../widgets/dashboard_components.dart';  // <-- Hier importieren
+import '../../widgets/dashboard_components.dart';
 
 import '../startseite/landing_installateur.dart';
+import '../startseite/landing_planer.dart';
+import '../startseite/landing_endkunde.dart';
 
 class LandingAdmin extends StatelessWidget {
   const LandingAdmin({super.key});
@@ -31,7 +33,12 @@ class LandingAdmin extends StatelessWidget {
         title: 'Planer',
         icon: Icons.engineering,
         count: 3,
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const LandingPagePlaner()),
+          );
+        },
       ),
       DashboardCardData(
         id: 'installateur',
@@ -50,7 +57,39 @@ class LandingAdmin extends StatelessWidget {
         title: 'Endkunde',
         icon: Icons.home,
         count: 0,
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const LandingPageEndkunde()),
+          );
+        },
+      ),
+      DashboardCardData(
+        id: 'mail',
+        title: 'Mail',
+        icon: Icons.mail,
+        count: 0,
+        onTap: () {
+          // TODO: Navigation zum Mail-Fragment ergänzen
+        },
+      ),
+      DashboardCardData(
+        id: 'hersteller',
+        title: 'Hersteller',
+        icon: Icons.factory,
+        count: 0,
+        onTap: () {
+          // TODO: Navigation zum Hersteller-Fragment ergänzen
+        },
+      ),
+      DashboardCardData(
+        id: 'pdf',
+        title: 'PDF-Verwaltung',
+        icon: Icons.picture_as_pdf,
+        count: 0,
+        onTap: () {
+          // TODO: Navigation zur PDF-Verwaltung ergänzen
+        },
       ),
     ];
 

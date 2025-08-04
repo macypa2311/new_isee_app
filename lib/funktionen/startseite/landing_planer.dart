@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../../kern/auth/auth_controller.dart';
 import '../../kern/theme/thema_controller.dart';
+import '../../widgets/settings_sheet.dart';
+import '../../widgets/dashboard_components.dart';
 
 class LandingPagePlaner extends StatelessWidget {
   const LandingPagePlaner({super.key});
@@ -10,118 +13,152 @@ class LandingPagePlaner extends StatelessWidget {
   Widget build(BuildContext context) {
     final thema = context.watch<ThemaController>();
     final auth = context.read<AuthController>();
+    final brightness = Theme.of(context).brightness;
+
+    final backgroundColor = brightness == Brightness.dark
+        ? const Color(0xFF2A2A2A)
+        : Colors.white;
+    final borderColor = brightness == Brightness.dark
+        ? Colors.white.withOpacity(0.05)
+        : Colors.grey.shade300;
+    final textColor = brightness == Brightness.dark ? Colors.white : Colors.black;
+
+    final planerCards = [
+      DashboardCardData(
+        id: 'mail',
+        title: 'Mail',
+        icon: Icons.mail,
+        count: 0,
+        onTap: () {
+          // TODO: Navigation zum Mail-Fragment ergänzen
+        },
+      ),
+      DashboardCardData(
+        id: 'planung_pv',
+        title: 'Planung PV',
+        icon: Icons.electrical_services,
+        count: 0,
+        onTap: () {
+          // TODO: Navigation zur PV-Planung ergänzen
+        },
+      ),
+      DashboardCardData(
+        id: 'planung_wp',
+        title: 'Planung Wärmepumpe',
+        icon: Icons.ac_unit,
+        count: 0,
+        onTap: () {
+          // TODO: Navigation zur Wärmepumpen-Planung ergänzen
+        },
+      ),
+      DashboardCardData(
+        id: 'kamera',
+        title: 'Kamera',
+        icon: Icons.camera_alt,
+        count: 0,
+        onTap: () {
+          // TODO: Navigation zur Kamera ergänzen
+        },
+      ),
+      DashboardCardData(
+        id: 'angebote',
+        title: 'Angebote',
+        icon: Icons.receipt_long,
+        count: 0,
+        onTap: () {
+          // TODO: Navigation zu Angeboten ergänzen
+        },
+      ),
+      DashboardCardData(
+        id: 'todo',
+        title: 'To-Do',
+        icon: Icons.checklist,
+        count: 0,
+        onTap: () {
+          // TODO: Navigation zu To-Do ergänzen
+        },
+      ),
+      DashboardCardData(
+        id: 'kunden',
+        title: 'Kunden',
+        icon: Icons.people,
+        count: 0,
+        onTap: () {
+          // TODO: Navigation zu Kunden ergänzen
+        },
+      ),
+    ];
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Planer Dashboard'),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        title: Text(
+          'Dashboard',
+          style: TextStyle(color: textColor),
+        ),
+        iconTheme: IconThemeData(color: textColor),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () {
               showModalBottomSheet(
                 context: context,
-                builder: (_) => const _SharedSettingsSheet(),
+                builder: (_) => const SettingsSheet(),
               );
             },
           ),
           IconButton(
             icon: const Icon(Icons.logout),
             tooltip: 'Abmelden',
-            onPressed: () => auth.logout(),
+            onPressed: () async {
+              await auth.logout();
+            },
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Text('Willkommen, Planer', style: Theme.of(context).textTheme.headlineSmall),
-            const SizedBox(height: 12),
-            Row(
+      body: Builder(
+        builder: (_) {
+          Widget cardWidget;
+          switch (thema.layoutMode) {
+            case LayoutMode.carousel:
+              cardWidget = CustomerCarousel(
+                cards: planerCards,
+                background: backgroundColor,
+                borderColor: borderColor,
+              );
+              break;
+            case LayoutMode.grid:
+            default:
+              cardWidget = GridView.count(
+                crossAxisCount: thema.gridCount,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                children: planerCards
+                    .map((card) => DashboardCardCompact(
+                          data: card,
+                          background: backgroundColor,
+                          borderColor: borderColor,
+                        ))
+                    .toList(),
+              );
+          }
+          return Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Dunkelmodus: ${thema.isDark ? "An" : "Aus"}'),
-                const Spacer(),
-                Text('Accent: ${thema.accentChoice}'),
+                const Text(
+                  'Willkommen',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(height: 20),
+                Expanded(child: cardWidget),
               ],
             ),
-            const SizedBox(height: 20),
-            Expanded(
-              child: Center(
-                child: Text(
-                  'Planer-spezifische Inhalte hier.',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _SharedSettingsSheet extends StatelessWidget {
-  const _SharedSettingsSheet();
-
-  @override
-  Widget build(BuildContext context) {
-    final thema = context.watch<ThemaController>();
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Wrap(
-        runSpacing: 12,
-        children: [
-          Text('Darstellung', style: Theme.of(context).textTheme.titleLarge),
-          Row(
-            children: [
-              const Text('Hell/Dunkel:'),
-              const SizedBox(width: 8),
-              Switch(value: thema.isDark, onChanged: (v) => thema.setDarkMode(v)),
-            ],
-          ),
-          Row(
-            children: [
-              const Text('Accent:'),
-              const SizedBox(width: 8),
-              DropdownButton<String>(
-                value: thema.accentChoice,
-                items: const [
-                  DropdownMenuItem(value: 'blue', child: Text('Blau')),
-                  DropdownMenuItem(value: 'green', child: Text('Grün')),
-                  DropdownMenuItem(value: 'red', child: Text('Rot')),
-                ],
-                onChanged: (s) {
-                  if (s != null) thema.setAccent(s);
-                },
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              const Text('Layout:'),
-              const SizedBox(width: 8),
-              DropdownButton<LayoutMode>(
-                value: thema.layoutMode,
-                items: const [
-                  DropdownMenuItem(value: LayoutMode.grid, child: Text('Kacheln')),
-                  DropdownMenuItem(value: LayoutMode.carousel, child: Text('Karussell')),
-                ],
-                onChanged: (l) {
-                  if (l != null) thema.setLayoutMode(l);
-                },
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          TextButton(
-            onPressed: () {
-              context.read<AuthController>().logout();
-              Navigator.of(context).pop();
-            },
-            child: const Text('Abmelden'),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
