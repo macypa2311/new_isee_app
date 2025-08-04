@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'kern/thema/thema_controller.dart';
+import 'kern/thema/design_system.dart';
 import 'kern/auth/auth_controller.dart';
 import 'funktionen/login/login_seite.dart';
 import 'funktionen/startseite/landing_admin.dart';
 import 'funktionen/startseite/landing_installateur.dart';
 import 'funktionen/startseite/landing_endkunde.dart';
 import 'funktionen/startseite/landing_planer.dart';
-import 'kern/thema/design_system.dart';
 
 void main() {
   runApp(
@@ -40,13 +40,13 @@ class AppStart extends StatelessWidget {
           home = const LandingAdmin();
           break;
         case Rolle.installateur:
-          home = const LandingInstallateur();
+          home = const LandingPageInstallateur();
           break;
         case Rolle.endkunde:
-          home = const LandingEndkunde();
+          home = const LandingPageEndkunde();
           break;
         case Rolle.planer:
-          home = const LandingPlaner();
+          home = const LandingPagePlaner();
           break;
         default:
           home = const LoginSeite();
@@ -56,8 +56,8 @@ class AppStart extends StatelessWidget {
     return MaterialApp(
       title: 'ISEE App',
       themeMode: thema.modus,
-      theme: DesignSystem.hellesTheme,
-      darkTheme: DesignSystem.dunklesTheme,
+      theme: DesignSystem.hellesTheme(thema.accentColor),
+      darkTheme: DesignSystem.dunklesTheme(thema.accentColor),
       home: home,
     );
   }

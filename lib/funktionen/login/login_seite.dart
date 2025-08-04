@@ -137,7 +137,7 @@ class _LoginSeiteState extends State<LoginSeite> {
                             icon: Icon(isDark ? Icons.dark_mode : Icons.light_mode, color: Colors.white),
                             onPressed: () {
                               final tc = context.read<ThemaController>();
-                              tc.toggleDark(!tc.isDark);
+                           final thema = context.read<ThemaController>();
                             },
                           ),
                         ],

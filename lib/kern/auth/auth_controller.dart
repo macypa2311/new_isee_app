@@ -1,70 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-enum Rolle { superadmin, admin, installateur, endkunde, planer, unknown }
+enum Rolle { superadmin, admin, installateur, endkunde, planer, unbekannt }
 
 class AuthController extends ChangeNotifier {
-  bool _isLoggedIn = false;
-  Rolle _rolle = Rolle.unknown;
+  bool _loggedIn = false;
+  Rolle _rolle = Rolle.unbekannt;
 
-  bool get isLoggedIn => _isLoggedIn;
+  bool get isLoggedIn => _loggedIn;
   Rolle get rolle => _rolle;
 
-  static const _storageKeyLoggedIn = 'is_logged_in';
-  static const _storageKeyRole = 'role';
-
-  AuthController() {
-    _loadFromStorage();
-  }
-
-  Future<void> _loadFromStorage() async {
-    final prefs = await SharedPreferences.getInstance();
-    _isLoggedIn = prefs.getBool(_storageKeyLoggedIn) ?? false;
-    final storedRole = prefs.getString(_storageKeyRole) ?? '';
-    _rolle = _stringToRolle(storedRole);
-    notifyListeners();
-  }
-
-  Rolle _stringToRolle(String s) {
-    switch (s) {
-      case 'superadmin':
-        return Rolle.superadmin;
-      case 'admin':
-        return Rolle.admin;
-      case 'installateur':
-        return Rolle.installateur;
-      case 'endkunde':
-        return Rolle.endkunde;
-      case 'planer':
-        return Rolle.planer;
-      default:
-        return Rolle.unknown;
-    }
-  }
-
+  /// Harteingecodete Login-Daten
   Future<void> login(String username, String password) async {
-    Rolle? role;
+    // Simulierter Delay (optional)
+    await Future.delayed(const Duration(milliseconds: 200));
 
-    if (username == "superadmin" && password == "sA_2025!PVDx#") {
-      role = Rolle.superadmin;
-    } else if (username == "admin" && password == "admin123") {
-      role = Rolle.admin;
-    } else if (username == "installateur" && password == "install2025") {
-      role = Rolle.installateur;
-    } else if (username == "endkunde" && password == "kunde2025") {
-      role = Rolle.endkunde;
-    } else if (username == "planer" && password == "plan2025") {
-      role = Rolle.planer;
+    if (username == 'superadmin' && password == 'sA_2025!PVDx#') {
+      _rolle = Rolle.superadmin;
+    } else if (username == 'admin' && password == 'admin123') {
+      _rolle = Rolle.admin;
+    } else if (username == 'installateur' && password == 'install2025') {
+      _rolle = Rolle.installateur;
+    } else if (username == 'endkunde' && password == 'kunde2025') {
+      _rolle = Rolle.endkunde;
+    } else if (username == 'planer' && password == 'plan2025') {
+      _rolle = Rolle.planer;
+    } else {
+      _rolle = Rolle.unbekannt;
     }
 
-    print('Loginversuch: $username / $password -> Rolle: $role');
-
-    if (role != null && role != Rolle.unknown) {
-      _isLoggedIn = true;
-      _rolle = role;
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setBool(_storageKeyLoggedIn, true);
-      await prefs.setString(_storageKeyRole, role.name);
+    if (_rolle != Rolle.unbekannt) {
+      _loggedIn = true;
       notifyListeners();
     } else {
       throw Exception('Ungültige Anmeldedaten');
@@ -72,11 +37,8 @@ class AuthController extends ChangeNotifier {
   }
 
   Future<void> logout() async {
-    _isLoggedIn = false;
-    _rolle = Rolle.unknown;
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(_storageKeyLoggedIn);
-    await prefs.remove(_storageKeyRole);
+    _loggedIn = false;
+    _rolle = Rolle.unbekannt;
     notifyListeners();
   }
 }
