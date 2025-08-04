@@ -1,0 +1,22 @@
+{
+  "101": {
+    "beschreibung": "Keine Zündung",
+    "loesung": "Überprüfen Sie die Gasversorgung und den Zündfunken."
+  },
+  "102": {
+    "beschreibung": "Wasserdruck zu niedrig",
+    "loesung": "Füllen Sie Wasser nach, bis der Druck im normalen Bereich liegt."
+  },
+  "103": {
+    "beschreibung": "Sensorfehler",
+    "loesung": "Kontrollieren Sie die Sensorverbindungen und tauschen Sie defekte Sensoren aus."
+  },
+  "104": {
+    "beschreibung": "Überhitzungsschutz aktiviert",
+    "loesung": "Lassen Sie die Wärmepumpe abkühlen und überprüfen Sie die Lüftung."
+  },
+  "105": {
+    "beschreibung": "Kommunikationsfehler mit Außeneinheit",
+    "loesung": "Verbindungskabel prüfen und ggf. neu starten."
+  }
+}

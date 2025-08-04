@@ -1,0 +1,32 @@
+{
+  "Fronius_Eco": {
+    "301": {
+      "beschreibung": "Netzunterspannung erkannt",
+      "loesung": "Überprüfen Sie die Netzspannung und stellen Sie sicher, dass sie innerhalb der zulässigen Grenzen liegt."
+    },
+    "302": {
+      "beschreibung": "Netzüberspannung erkannt",
+      "loesung": "Kontaktieren Sie den Netzbetreiber, falls die Spannung zu hoch ist."
+    },
+    "303": {
+      "beschreibung": "Interner Fehler im Wechselrichter",
+      "loesung": "Setzen Sie den Wechselrichter zurück oder kontaktieren Sie den technischen Support."
+    },
+    "304": {
+      "beschreibung": "Fehlerhafte Kommunikation",
+      "loesung": "Überprüfen Sie die Kommunikationskabel und Verbindungen."
+    },
+    "305": {
+      "beschreibung": "Überhitzung des Wechselrichters",
+      "loesung": "Stellen Sie sicher, dass der Wechselrichter ausreichend belüftet wird und nicht direkter Sonneneinstrahlung ausgesetzt ist."
+    },
+    "306": {
+      "beschreibung": "DC-Fehler",
+      "loesung": "Überprüfen Sie die Gleichstromseite der Anlage auf Kurzschlüsse oder Beschädigungen."
+    },
+    "307": {
+      "beschreibung": "Fehler im AC-Netz",
+      "loesung": "Kontrollieren Sie die Netzparameter und die Anschlüsse."
+    }
+  }
+}

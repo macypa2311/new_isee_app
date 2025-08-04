@@ -1,0 +1,44 @@
+{
+  "Symo": {
+    "101": {
+      "beschreibung": "Netzunterspannung erkannt",
+      "loesung": "Überprüfen Sie die Netzspannung und stellen Sie sicher, dass sie im zulässigen Bereich liegt."
+    },
+    "102": {
+      "beschreibung": "Netzüberspannung erkannt",
+      "loesung": "Überprüfen Sie die Netzspannung. Eventuell muss der Netzbetreiber informiert werden."
+    },
+    "103": {
+      "beschreibung": "Wechselrichter Übertemperatur",
+      "loesung": "Stellen Sie sicher, dass der Wechselrichter gut belüftet ist. Vermeiden Sie direkte Sonneneinstrahlung."
+    },
+    "104": {
+      "beschreibung": "Kommunikationsfehler",
+      "loesung": "Überprüfen Sie alle Kommunikationskabel und Verbindungen zum Wechselrichter."
+    },
+    "105": {
+      "beschreibung": "DC-Spannungsfehler",
+      "loesung": "Prüfen Sie die Solarmodule und Verkabelung auf Fehler oder Beschädigungen."
+    },
+    "106": {
+      "beschreibung": "Isolationsfehler erkannt",
+      "loesung": "Lassen Sie die Anlage von einem Fachmann auf Isolationsfehler prüfen."
+    },
+    "107": {
+      "beschreibung": "Fehler bei der Synchronisation mit dem Netz",
+      "loesung": "Überprüfen Sie die Netzparameter und starten Sie den Wechselrichter neu."
+    },
+    "108": {
+      "beschreibung": "Interner Fehler",
+      "loesung": "Setzen Sie den Wechselrichter zurück oder kontaktieren Sie den technischen Support."
+    },
+    "109": {
+      "beschreibung": "Fehler im Leistungsmessgerät",
+      "loesung": "Überprüfen Sie das Leistungsmessgerät und die Verkabelung."
+    },
+    "110": {
+      "beschreibung": "Software-Update erforderlich",
+      "loesung": "Führen Sie ein Software-Update des Wechselrichters durch."
+    }
+  }
+}

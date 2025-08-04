@@ -1,0 +1,109 @@
+{
+  "SH5RT": {
+    "002, 003, 014, 015": {
+      "description": "Netzüberspannung",
+      "solution": "Der Wechselrichter verbindet sich bei Normalzustand automatisch erneut. Wenn der Fehler wiederholt auftritt:\n1. Netzspannung messen und Netzbetreiber kontaktieren, wenn sie zu hoch ist.\n2. Schutzparameter über App oder LCD prüfen, ggf. Werte in Absprache mit dem Netzbetreiber ändern.\n3. Bei anhaltendem Fehler Sungrow kontaktieren.",
+      "pdf": "https://isee-energy.de/wp-content/uploads/2025/07/DE_UM_SH5.0_6.0_8.0_10RTSH5.0_6.0_8.0_10RT-20-Benutzerhandbuch.pdf#page=143"
+    },
+    "004, 005": {
+      "description": "Netzunterspannung",
+      "solution": "Bei Normalzustand automatische Wiederverbindung. Wenn der Fehler wiederholt auftritt:\n1. Netzspannung messen, ggf. Netzbetreiber kontaktieren.\n2. Schutzparameter über App prüfen.\n3. Wechselstromkabel auf korrekten Anschluss prüfen.\n4. Bei anhaltendem Fehler Sungrow kontaktieren.",
+      "pdf": "https://isee-energy.de/wp-content/uploads/2025/07/DE_UM_SH5.0_6.0_8.0_10RTSH5.0_6.0_8.0_10RT-20-Benutzerhandbuch.pdf#page=143"
+    },
+    "008, 009": {
+      "description": "Netzfrequenzfehler (Über-/Unterfrequenz)",
+      "solution": "Bei Normalzustand automatische Wiederverbindung. Wenn der Fehler wiederholt auftritt:\n1. Netzfrequenz messen, ggf. Netzbetreiber kontaktieren.\n2. Schutzparameter über App prüfen.\n3. Bei anhaltendem Fehler Sungrow kontaktieren.",
+      "pdf": "https://isee-energy.de/wp-content/uploads/2025/07/DE_UM_SH5.0_6.0_8.0_10RTSH5.0_6.0_8.0_10RT-20-Benutzerhandbuch.pdf#page=143"
+    },
+    "010": {
+      "description": "Stromausfall im Netz",
+      "solution": "1. Netzversorgung prüfen.\n2. Wechselstromkabel prüfen.\n3. Adern und Neutralleiter prüfen.\n4. Schalterzustände prüfen.\n5. Bei anhaltendem Fehler Sungrow kontaktieren.",
+      "pdf": "https://isee-energy.de/wp-content/uploads/2025/07/DE_UM_SH5.0_6.0_8.0_10RTSH5.0_6.0_8.0_10RT-20-Benutzerhandbuch.pdf#page=143"
+    },
+    "012": {
+      "description": "Übermäßiger Leckstrom",
+      "solution": "1. Schwache Sonneneinstrahlung oder feuchte Umgebung möglich – automatische Wiederverbindung.\n2. Kabelisolation prüfen.\n3. Bei anhaltendem Fehler Sungrow kontaktieren.",
+      "pdf": "https://isee-energy.de/wp-content/uploads/2025/07/DE_UM_SH5.0_6.0_8.0_10RTSH5.0_6.0_8.0_10RT-20-Benutzerhandbuch.pdf#page=143"
+    },
+    "013": {
+      "description": "Netz abnormal",
+      "solution": "1. Netzfrequenz messen, ggf. Netzbetreiber kontaktieren.\n2. Bei anhaltendem Fehler Sungrow kontaktieren.",
+      "pdf": "https://isee-energy.de/wp-content/uploads/2025/07/DE_UM_SH5.0_6.0_8.0_10RTSH5.0_6.0_8.0_10RT-20-Benutzerhandbuch.pdf#page=143"
+    },
+    "017": {
+      "description": "Unsymmetrie Netzspannung",
+      "solution": "1. Netzspannungen prüfen, ggf. Netzbetreiber kontaktieren.\n2. Parameter anpassen, falls Werte im erlaubten Bereich.\n3. Bei anhaltendem Fehler Sungrow kontaktieren.",
+      "pdf": "https://isee-energy.de/wp-content/uploads/2025/07/DE_UM_SH5.0_6.0_8.0_10RTSH5.0_6.0_8.0_10RT-20-Benutzerhandbuch.pdf#page=143"
+    },
+    "028, 029": {
+      "description": "PV-Verpolungsfehler",
+      "solution": "1. Verpolung prüfen, bei Bedarf PV-Schalter trennen (Strom < 0,5A) und korrigieren.\n2. Bei anhaltendem Fehler Sungrow kontaktieren.",
+      "pdf": "https://isee-energy.de/wp-content/uploads/2025/07/DE_UM_SH5.0_6.0_8.0_10RTSH5.0_6.0_8.0_10RT-20-Benutzerhandbuch.pdf#page=143"
+    },
+    "037": {
+      "description": "Hohe Umgebungstemperatur",
+      "solution": "1. Umgebungstemperatur prüfen.\n2. Lüftung und Sonneneinstrahlung kontrollieren.\n3. Lüfterfunktion prüfen.\n4. Bei anhaltendem Fehler Sungrow kontaktieren.",
+      "pdf": "https://isee-energy.de/wp-content/uploads/2025/07/DE_UM_SH5.0_6.0_8.0_10RTSH5.0_6.0_8.0_10RT-20-Benutzerhandbuch.pdf#page=146"
+    },
+    "039": {
+      "description": "Niedriger System-Isolationswiderstand",
+      "solution": "1. Schutzwerte prüfen.\n2. DC-Kabel auf Erdschluss prüfen.\n3. Bei Regen warten, ggf. erneut prüfen.\n4. Batteriekabel prüfen.\n5. Bei anhaltendem Fehler Sungrow kontaktieren.",
+      "pdf": "https://isee-energy.de/wp-content/uploads/2025/07/DE_UM_SH5.0_6.0_8.0_10RTSH5.0_6.0_8.0_10RT-20-Benutzerhandbuch.pdf#page=146"
+    },
+    "106": {
+      "description": "Erdungskabel defekt",
+      "solution": "/Users/marcobscherningkat/Library/Group Containers/group.com.apple.coreservices.useractivityd/shared-pasteboard/items/178C731C-F155-4A3D-87CC-5DC593351A3B/1d58258bd8b580dc2942a804a7ccde313e09479c.rtfd",
+      "pdf": "https://isee-energy.de/wp-content/uploads/2025/07/DE_UM_SH5.0_6.0_8.0_10RTSH5.0_6.0_8.0_10RT-20-Benutzerhandbuch.pdf#page=146"
+    },
+    "051": {
+      "description": "Kommunikationsfehler mit Meter",
+      "solution": "1. Verkabelung zwischen Wechselrichter und Energiezähler prüfen.\n2. Richtigkeit der Anschlussklemmen prüfen (A/B-Polung).\n3. Bei anhaltendem Fehler Sungrow kontaktieren.",
+      "pdf": "https://isee-energy.de/wp-content/uploads/2025/07/DE_UM_SH5.0_6.0_8.0_10RTSH5.0_6.0_8.0_10RT-20-Benutzerhandbuch.pdf#page=146"
+    },
+    "714": {
+      "description": "Fehler bei Zählerinitialisierung",
+      "solution": "1. Parametrierung des Zählers prüfen.\n2. Zähleradresse und Baudrate überprüfen.\n3. Bei anhaltendem Fehler Sungrow kontaktieren.",
+      "pdf": "https://isee-energy.de/wp-content/uploads/2025/07/DE_UM_SH5.0_6.0_8.0_10RTSH5.0_6.0_8.0_10RT-20-Benutzerhandbuch.pdf#page=146"
+    },
+    "932, 933, 934, 935": {
+      "description": "Fehler beim Upgrade-Vorgang",
+      "solution": "1. Firmware-Dateien prüfen.\n2. USB-Stick oder Netzwerkverbindung kontrollieren.\n3. Upgrade-Vorgang ggf. neu starten.\n4. Bei Fehlschlag Sungrow kontaktieren.",
+      "pdf": "https://isee-energy.de/wp-content/uploads/2025/07/DE_UM_SH5.0_6.0_8.0_10RTSH5.0_6.0_8.0_10RT-20-Benutzerhandbuch.pdf#page=146"
+    },
+    "1003": {
+      "description": "Interner DSP-Kommunikationsfehler",
+      "solution": "1. Wechselrichter neu starten.\n2. Bei wiederholtem Auftreten Sungrow kontaktieren.",
+      "pdf": "https://isee-energy.de/wp-content/uploads/2025/07/DE_UM_SH5.0_6.0_8.0_10RTSH5.0_6.0_8.0_10RT-20-Benutzerhandbuch.pdf#page=146"
+    },
+    "1005": {
+      "description": "Fehler DC/DC-Kommunikation",
+      "solution": "1. Kommunikationseinheit prüfen.\n2. Wechselrichter neu starten.\n3. Bei anhaltendem Fehler Sungrow kontaktieren.",
+      "pdf": "https://isee-energy.de/wp-content/uploads/2025/07/DE_UM_SH5.0_6.0_8.0_10RTSH5.0_6.0_8.0_10RT-20-Benutzerhandbuch.pdf#page=146"
+    },
+    "1106": {
+      "description": "Isolationsfehler DC-Leitung",
+      "solution": "1. PV-Leitungen und -Stecker prüfen.\n2. Erdschluss suchen und beheben.\n3. Nach Regen ggf. Trocknungszeit abwarten.\n4. Bei anhaltendem Fehler Sungrow kontaktieren.",
+      "pdf": "https://isee-energy.de/wp-content/uploads/2025/07/DE_UM_SH5.0_6.0_8.0_10RTSH5.0_6.0_8.0_10RT-20-Benutzerhandbuch.pdf#page=146"
+    },
+    "502, 503, 504, 507, 508, 510, 513, 516, 517, 518": {
+      "description": "Systemalarm",
+      "solution": "1. Betrieb kann ggf. fortgesetzt werden.\n2. Verkabelung und Umgebung prüfen.\n3. Bei fortbestehendem Alarm Sungrow kontaktieren.",
+      "pdf": "https://isee-energy.de/wp-content/uploads/2025/07/DE_UM_SH5.0_6.0_8.0_10RTSH5.0_6.0_8.0_10RT-20-Benutzerhandbuch.pdf#page=147"
+    },
+    "703, 711, 712, 715, 732, 733, 734, 735, 736, 739, 832, 833, 835, 836, 837": {
+      "description": "Batterie abnormal",
+      "solution": "1. Überprüfen Sie bei abnormaler Batteriespannung, ob der Anschluss des Batteriestromkabels fehlerhaft ist (verpolt, lose, usw.).\n2. Prüfen Sie die angezeigte Batteriespannung in iSolarCloud – ggf. Batteriehersteller kontaktieren.\n3. Bei abnormaler Temperatur: Umgebung verbessern (z. B. Wärmeableitung).\n4. Bei weiterem Fehler: Sungrow oder Batteriehersteller kontaktieren.",
+      "pdf": "https://isee-energy.de/wp-content/uploads/2025/07/DE_UM_SH5.0_6.0_8.0_10RTSH5.0_6.0_8.0_10RT-20-Benutzerhandbuch.pdf#page=147"
+    },
+    "006, 007, 011, 019, 021, 025, 038, 040, 041, 042, 048, 049, 050, 052, 053, 054, 056, 064, 065, 066, 067, 100, 101, 102, 105, 107, 113, 117, 200, 201, 202, 203, 204, 205, 300, 303, 304, 305, 308": {
+      "description": "Systemfehler",
+      "solution": "1. Auf Rückkehr in den Normalzustand warten.\n2. Wechselstrom- und Gleichstromschalter sowie Batterieschalter trennen.\n3. Nach 15 Minuten erneut einschalten.\n4. Bei weiterem Fehler Sungrow kontaktieren.",
+      "pdf": "https://isee-energy.de/wp-content/uploads/2025/07/DE_UM_SH5.0_6.0_8.0_10RTSH5.0_6.0_8.0_10RT-20-Benutzerhandbuch.pdf#page=147"
+    },
+    "316, 320, 600, 601, 605, 608, 612, 616, 620, 624": {
+      "description": "Nicht behebbarer Fehler",
+      "solution": "Wenden Sie sich an Ihren Händler. Falls das Problem weiterhin besteht, wenden Sie sich direkt an SUNGROW.",
+      "pdf": "https://isee-energy.de/wp-content/uploads/2025/07/DE_UM_SH5.0_6.0_8.0_10RTSH5.0_6.0_8.0_10RT-20-Benutzerhandbuch.pdf#page=148"
+    }
+  }
+} 

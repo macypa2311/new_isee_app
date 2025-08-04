@@ -1,0 +1,64 @@
+{
+  "SH10RT": {
+    "101": {
+      "description": "DC-Eingangsspannung zu hoch",
+      "solution": "Überprüfen Sie die Leerlaufspannung der PV-Module. Stellen Sie sicher, dass sie den Spezifikationen des Wechselrichters entspricht.",
+      "pdf": "https://isee-energy.de/html/sungrowsh/Sungrow%20Hybrid%20SH20RT%20-%20V11%20Installationsanleitung.pdf#page=140"
+    },
+    "102": {
+      "description": "Unterspannung am DC-Eingang",
+      "solution": "Stellen Sie sicher, dass genügend Module in Reihe geschaltet sind, um die Mindeststartspannung zu erreichen.",
+      "pdf": "https://isee-energy.de/html/sungrowsh/Sungrow%20Hybrid%20SH20RT%20-%20V11%20Installationsanleitung.pdf#page=140"
+    },
+    "103": {
+      "description": "Netzfrequenz außerhalb des zulässigen Bereichs",
+      "solution": "Überprüfen Sie die Netzfrequenz. Kontaktieren Sie ggf. den Netzbetreiber.",
+      "pdf": "https://isee-energy.de/html/sungrowsh/Sungrow%20Hybrid%20SH20RT%20-%20V11%20Installationsanleitung.pdf#page=141"
+    },
+    "104": {
+      "description": "Temperatur zu hoch",
+      "solution": "Sorgen Sie für ausreichende Belüftung, vermeiden Sie direkte Sonneneinstrahlung und prüfen Sie die Umgebungstemperatur.",
+      "pdf": "https://isee-energy.de/pdf/SungrowSH/Installationsanleitung.pdf#page=150142"
+    },
+    "105": {
+      "description": "Isolationswiderstand zu niedrig",
+      "solution": "Prüfen Sie die DC-Verkabelung auf Erdschluss oder Feuchtigkeit. Reinigen oder ersetzen Sie betroffene Komponenten.",
+      "pdf": "https://isee-energy.de/html/sungrowsh/Installationsanleitung.pdf#page=143"
+    },
+    "106": {
+      "description": "Fehlerhafte Netzspannung",
+      "solution": "Messen Sie die AC-Spannung am Einspeisepunkt. Abweichungen deuten auf Netzprobleme oder falsche Parameter hin.",
+      "pdf": "https://isee-energy.de/html/sungrowsh/Sungrow%20Hybrid%20SH20RT%20-%20V11%20Installationsanleitung.pdf#page=144"
+    },
+    "107": {
+      "description": "Relaisprüfung fehlgeschlagen",
+      "solution": "Trennen Sie den Wechselrichter für 5 Minuten vom Netz. Falls der Fehler bestehen bleibt, wenden Sie sich an den Support.",
+      "pdf": "https://isee-energy.de/html/sungrowsh/Sungrow%20Hybrid%20SH20RT%20-%20V11%20Installationsanleitung.pdf#page=145"
+    },
+    "108": {
+      "description": "Interner Speicherfehler (EEPROM)",
+      "solution": "Ein interner Defekt liegt vor. Der Wechselrichter sollte ersetzt oder vom Sungrow-Service überprüft werden.",
+      "pdf": "https://isee-energy.de/html/sungrowsh/Sungrow%20Hybrid%20SH20RT%20-%20V11%20Installationsanleitung.pdf#page=146"
+    },
+    "109": {
+      "description": "AC-Leckstrom zu hoch",
+      "solution": "Prüfen Sie den Schutzleiteranschluss und messen Sie eventuelle Ableitströme. Installateur oder Elektrofachkraft erforderlich.",
+      "pdf": "https://isee-energy.de/html/sungrowsh/Sungrow%20Hybrid%20SH20RT%20-%20V11%20Installationsanleitung.pdf#page=147"
+    },
+    "110": {
+      "description": "Lüfterfehler erkannt",
+      "solution": "Reinigen Sie den Lüfter oder ersetzen Sie ihn bei Defekt. Beachten Sie die Wartungsvorgaben im Handbuch.",
+      "pdf": "https://isee-energy.de/html/sungrowsh/Sungrow%20Hybrid%20SH20RT%20-%20V11%20Installationsanleitung.pdf#page=148"
+    },
+    "111": {
+      "description": "Kommunikationsfehler mit dem Batterie-Management-System (BMS)",
+      "solution": "Überprüfen Sie die Kommunikationsverkabelung und die Einstellungen der Batterie. Ggf. neu starten.",
+      "pdf": "https://isee-energy.de/html/sungrowsh/Sungrow%20Hybrid%20SH20RT%20-%20V11%20Installationsanleitung.pdf#page=149"
+    },
+    "112": {
+      "description": "PV-Leistung zu niedrig",
+      "solution": "Prüfen Sie die Modulverschaltung, die Sonneneinstrahlung sowie mögliche Verschattungen oder Defekte.",
+      "pdf": "https://isee-energy.de/html/pdf/sungrowsh/SungrowHybridSH20RT-V11 Installationsanleitung.pdf.pdf#page=150"
+    }
+  }
+}
