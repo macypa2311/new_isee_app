@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../../kern/auth/auth_controller.dart';
-import '../../kern/thema/thema_controller.dart';
+import '../../kern/theme/thema_controller.dart';
+import '../../widgets/settings_sheet.dart';
+import '../../widgets/dashboard_components.dart';
+
+import '../../fragments/diagnose_pv_fragment.dart';
 
 class LandingPageInstallateur extends StatelessWidget {
   const LandingPageInstallateur({super.key});
@@ -10,137 +15,102 @@ class LandingPageInstallateur extends StatelessWidget {
   Widget build(BuildContext context) {
     final thema = context.watch<ThemaController>();
     final auth = context.read<AuthController>();
+    final brightness = Theme.of(context).brightness;
+
+    final backgroundColor = brightness == Brightness.dark
+        ? const Color(0xFF2A2A2A)
+        : Colors.white;
+    final borderColor = brightness == Brightness.dark
+        ? Colors.white.withAlpha((0.05 * 255).round())
+        : Colors.grey.shade300;
+    final textColor = brightness == Brightness.dark ? Colors.white : Colors.black;
+
+    final exampleCards = [
+      DashboardCardData(
+        id: 'diagnose',
+        title: 'Diagnose',
+        icon: Icons.settings_remote,
+        count: 0,
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const DiagnosePVFragment()),
+          );
+        },
+      ),
+      DashboardCardData(
+        id: 'fehlercodes',
+        title: 'Fehlercodes',
+        icon: Icons.warning,
+        count: 0,
+        onTap: () {},
+      ),
+      DashboardCardData(
+        id: 'statistiken',
+        title: 'Statistiken',
+        icon: Icons.bar_chart,
+        count: 0,
+        onTap: () {},
+      ),
+    ];
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Installateur Dashboard'),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        title: Text(
+          'Installateur Dashboard',
+          style: TextStyle(color: textColor),
+        ),
+        iconTheme: IconThemeData(color: textColor),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () {
               showModalBottomSheet(
                 context: context,
-                builder: (_) => const _SharedSettingsSheet(),
+                builder: (_) => const SettingsSheet(),
               );
             },
           ),
           IconButton(
             icon: const Icon(Icons.logout),
             tooltip: 'Abmelden',
-            onPressed: () => auth.logout(),
-          ),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Text('Willkommen, Installateur', style: Theme.of(context).textTheme.headlineSmall),
-            const SizedBox(height: 12),
-            Row(
-              children: [
-                Text('Aktueller Modus: ${thema.isDark ? "Dunkel" : "Hell"}'),
-                const Spacer(),
-                Text('Accent: ${thema.accentChoice}'),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Expanded(
-              child: Center(
-                child: Text(
-                  'Hier kommen deine spezifischen Tools/Widgets hin.',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _SharedSettingsSheet extends StatelessWidget {
-  const _SharedSettingsSheet({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final thema = context.watch<ThemaController>();
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Wrap(
-        runSpacing: 12,
-        children: [
-          Text('Darstellung', style: Theme.of(context).textTheme.titleLarge),
-          Row(
-            children: [
-              const Text('Hell/Dunkel:'),
-              const SizedBox(width: 8),
-              ChoiceChip(
-                label: const Text('Hell'),
-                selected: !thema.isDark,
-                onSelected: (_) => thema.setDarkMode(false),
-              ),
-              const SizedBox(width: 8),
-              ChoiceChip(
-                label: const Text('Dunkel'),
-                selected: thema.isDark,
-                onSelected: (_) => thema.setDarkMode(true),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              const Text('Accent:'),
-              const SizedBox(width: 8),
-              ChoiceChip(
-                label: const Text('Blau'),
-                selected: thema.accentChoice == 'blue',
-                onSelected: (_) => thema.setAccent('blue'),
-              ),
-              const SizedBox(width: 8),
-              ChoiceChip(
-                label: const Text('Grün'),
-                selected: thema.accentChoice == 'green',
-                onSelected: (_) => thema.setAccent('green'),
-              ),
-              const SizedBox(width: 8),
-              ChoiceChip(
-                label: const Text('Rot'),
-                selected: thema.accentChoice == 'red',
-                onSelected: (_) => thema.setAccent('red'),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              const Text('Layout:'),
-              const SizedBox(width: 8),
-              ChoiceChip(
-                label: const Text('Kacheln'),
-                selected: thema.layoutMode == LayoutMode.grid,
-                onSelected: (_) => thema.setLayoutMode(LayoutMode.grid),
-              ),
-              const SizedBox(width: 8),
-              ChoiceChip(
-                label: const Text('Karussell'),
-                selected: thema.layoutMode == LayoutMode.carousel,
-                onSelected: (_) => thema.setLayoutMode(LayoutMode.carousel),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          TextButton(
-            onPressed: () {
-              context.read<AuthController>().logout();
-              Navigator.of(context).pop();
+            onPressed: () async {
+              await auth.logout();
             },
-            child: const Text('Abmelden'),
           ),
         ],
+      ),
+      body: Builder(
+        builder: (_) {
+          switch (thema.layoutMode) {
+            case LayoutMode.carousel:
+              return CustomerCarousel(
+                cards: exampleCards,
+                background: backgroundColor,
+                borderColor: borderColor,
+              );
+            case LayoutMode.grid:
+           
+              return Padding(
+                padding: const EdgeInsets.all(12),
+                child: GridView.count(
+                  crossAxisCount: thema.gridCount,
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
+                  children: exampleCards
+                      .map(
+                        (card) => DashboardCardCompact(
+                          data: card,
+                          background: backgroundColor,
+                          borderColor: borderColor,
+                        ),
+                      )
+                      .toList(),
+                ),
+              );
+          }
+        },
       ),
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../kern/auth/auth_controller.dart';
-import '../../kern/thema/thema_controller.dart';
+import '../../kern/theme/thema_controller.dart';
 
 class LandingPagePlaner extends StatelessWidget {
   const LandingPagePlaner({super.key});
@@ -62,7 +62,7 @@ class LandingPagePlaner extends StatelessWidget {
 }
 
 class _SharedSettingsSheet extends StatelessWidget {
-  const _SharedSettingsSheet({super.key});
+  const _SharedSettingsSheet();
 
   @override
   Widget build(BuildContext context) {

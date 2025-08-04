@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../kern/auth/auth_controller.dart';
-import '../../kern/thema/thema_controller.dart';
+import '../../kern/theme/thema_controller.dart';
 
 class LoginSeite extends StatefulWidget {
   const LoginSeite({super.key});

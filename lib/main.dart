@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'kern/thema/thema_controller.dart';
-import 'kern/thema/design_system.dart';
+import 'kern/theme/thema_controller.dart';
+import 'kern/theme/design_system.dart';
 import 'kern/auth/auth_controller.dart';
 import 'funktionen/login/login_seite.dart';
 import 'funktionen/startseite/landing_admin.dart';

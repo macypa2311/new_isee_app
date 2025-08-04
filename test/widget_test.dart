@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
 import 'package:nwe_isee_app/main.dart';
-import 'package:nwe_isee_app/kern/thema/thema_controller.dart';
+import 'package:nwe_isee_app/kern/theme/thema_controller.dart';
 import 'package:nwe_isee_app/kern/auth/auth_controller.dart';
 
 void main() {
