@@ -1,0 +1,32 @@
+{
+  "pv_cost_per_kWp": {
+    "label": "Investitionskosten PV",
+    "value": 1100,
+    "unit": "€ / kWp",
+    "description": "Kosten für Module, Montage, Wechselrichter"
+  },
+  "storage_cost_per_kWh": {
+    "label": "Investitionskosten Speicher",
+    "value": 600,
+    "unit": "€ / kWh",
+    "description": "Kosten pro kWh nutzbarer Kapazität"
+  },
+  "electricity_price": {
+    "label": "Strompreis",
+    "value": 0.35,
+    "unit": "€ / kWh",
+    "description": "Eigenverbrauchskosten ohne PV"
+  },
+  "feed_in_tariff": {
+    "label": "Einspeisevergütung",
+    "value": 0.08,
+    "unit": "€ / kWh",
+    "description": "Vergütung für eingespeisten Strom"
+  },
+  "specific_yield": {
+    "label": "Spezifischer Jahresertrag",
+    "value": 900,
+    "unit": "kWh / kWp",
+    "description": "Typischer Ertrag pro kWp in Mitteleuropa"
+  }
+}
