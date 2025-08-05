@@ -16,10 +16,15 @@ dependencies:
   provider: ^6.1.5
   url_launcher: ^6.1.7
   flutter_secure_storage: ^8.0.0
-  image_picker: ^0.8.7+3
+  image_picker: ^1.1.0
   syncfusion_flutter_pdfviewer: ^30.1.42
   fl_chart: ^0.64.0
   table_calendar: ^3.0.9
+  in_app_purchase: ^3.2.3
+  csv: ^5.0.0
+  file_selector: ^1.0.3
+  geocoding: ^2.0.4
+  google_maps_flutter: ^2.2.0
   
 dev_dependencies:
   flutter_test:
@@ -32,3 +37,5 @@ flutter:
   assets:
     - assets/images/login_background.jpg
     - assets/errors/pv/sungrow/sungrow_shxxrt_errors.json 
+    - assets/images/
+    - assets/default-parameters.json

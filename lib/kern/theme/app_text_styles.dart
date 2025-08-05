@@ -1,4 +1,3 @@
-// lib/kern/theme/app_text_styles.dart
 import 'package:flutter/material.dart';
 
 class AppTextStyles {
@@ -24,6 +23,13 @@ class AppTextStyles {
             fontWeight: FontWeight.bold,
           );
 
+  static TextStyle wichtig(BuildContext context) =>
+      Theme.of(context).textTheme.titleMedium!.copyWith(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+            color: Theme.of(context).colorScheme.onSurface,
+          );
+
   static TextStyle klein(BuildContext context) =>
       Theme.of(context).textTheme.bodySmall!;
 
@@ -34,5 +40,13 @@ class AppTextStyles {
       Theme.of(context).textTheme.bodyMedium!.copyWith(
             color: Theme.of(context).colorScheme.error,
             fontWeight: FontWeight.w600,
+          );
+
+  static TextStyle textNormal(BuildContext context) =>
+      Theme.of(context).textTheme.bodyMedium!;
+
+  static TextStyle beschreibung(BuildContext context) =>
+      Theme.of(context).textTheme.bodySmall!.copyWith(
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
           );
 }

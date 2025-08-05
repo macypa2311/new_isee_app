@@ -156,6 +156,17 @@ class LandingAdmin extends StatelessWidget {
           );
         },
       ),
+      DashboardCardData(
+        id: 'einstellungen',
+        title: 'Einstellungen',
+        icon: Icons.settings,
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const EinstellungenFragment()),
+          );
+        },
+      ),
     ];
 
     final allCards = [...primaryCards, ...otherCards];

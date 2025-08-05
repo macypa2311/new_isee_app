@@ -1,21 +1,20 @@
-// lib/funktionen/startseite/landing_endkunde.dart
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../kern/theme/thema_controller.dart';
+import '../../kern/theme/app_colors.dart';
 import '../../widgets/dashboard_components.dart';
-import '../startseite/landing_planer.dart' as planer;
-import '../startseite/landing_installateur.dart' as installateur;
-import '../startseite/landing_admin.dart';
+import '../../widgets/hinweis_kachel.dart';
 
-import '../../fragments/einstellungen_fragment.dart';
 import '../../fragments/verbrauch_fragment.dart';
-import '../../fragments/diagnose_endkunde_fragment.dart';
 import '../../fragments/ki_kamera_fragment.dart';
+import '../../fragments/diagnose_endkunde_fragment.dart';
 import '../../fragments/pv_rechner_fragment.dart';
-import '../../fragments/unabhaengigkeits_fragment.dart';
 import '../../fragments/pdf_viewer_fragment.dart';
+import '../../fragments/einstellungen_fragment.dart';
+import '../../fragments/mail_fragment.dart';
+import '../../fragments/wetter_fragment.dart';
+import '../settings/settings_menu.dart';
 
 class LandingPageEndkunde extends StatelessWidget {
   const LandingPageEndkunde({super.key});
@@ -25,159 +24,165 @@ class LandingPageEndkunde extends StatelessWidget {
     final thema = context.watch<ThemaController>();
     final brightness = Theme.of(context).brightness;
 
-    final backgroundColor = brightness == Brightness.dark
-        ? const Color(0xFF2A2A2A)
-        : Colors.white;
+    final backgroundColor = AppColors.background(context);
     final borderColor = brightness == Brightness.dark
         ? Colors.white.withOpacity(0.05)
         : Colors.grey.shade300;
-    final textColor = brightness == Brightness.dark ? Colors.white : Colors.black;
+    final textColor = AppColors.textPrimary(context);
 
-    final primaryCards = [
-      DashboardCardData(
-        id: 'planer',
-        title: 'Planer',
-        icon: Icons.engineering,
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const planer.LandingPagePlaner()),
-          );
-        },
-      ),
-      DashboardCardData(
-        id: 'installateur',
-        title: 'Installateur',
-        icon: Icons.handyman,
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const installateur.LandingPageInstallateur()),
-          );
-        },
-      ),
-      DashboardCardData(
-        id: 'admin',
-        title: 'Admin',
-        icon: Icons.admin_panel_settings,
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const LandingAdmin()),
-          );
-        },
-      ),
-    ];
+    // ⚠️ Hier kannst du das später dynamisch machen – aktuell statisch gesetzt
+    final bool hatUngeleseneNachrichten = true;
 
-    final otherCards = [
+    final cards = [
       DashboardCardData(
         id: 'verbrauch',
         title: 'Verbrauchsanalyse',
         icon: Icons.bolt,
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const VerbrauchFragment()),
-          );
-        },
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const VerbrauchFragment()),
+        ),
       ),
       DashboardCardData(
         id: 'kamera',
-        title: 'Kamera',
+        title: 'Kamera KI',
         icon: Icons.camera_alt,
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const KameraKiFragment()),
-          );
-        },
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const KameraKiFragment()),
+        ),
       ),
       DashboardCardData(
         id: 'diagnose',
         title: 'Fehlerdiagnose',
-        icon: Icons.report_problem,
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const DiagnoseEndkundeFragment()),
-          );
-        },
+        icon: Icons.warning,
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const DiagnoseEndkundeFragment()),
+        ),
       ),
       DashboardCardData(
-        id: 'pvRechner',
+        id: 'pv',
         title: 'PV-Rechner',
         icon: Icons.calculate,
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const PvRechnerFragment()),
-          );
-        },
-      ),
-      DashboardCardData(
-        id: 'unabhaengigkeit',
-        title: 'Unabhängigkeit',
-        icon: Icons.energy_savings_leaf,
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const UnabhaengigkeitsFragment()),
-          );
-        },
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const PvRechnerFragment()),
+        ),
       ),
       DashboardCardData(
         id: 'pdf',
         title: 'PDF-Hilfe',
         icon: Icons.picture_as_pdf,
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => const PdfViewerFragment(
-                title: 'Endkunden-Hilfe',
-                pdfUrl: 'https://example.com/endkunde.pdf',
-              ),
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => const PdfViewerFragment(
+              title: 'PDF-Hilfe',
+              pdfUrl: 'https://example.com/endkunde_hilfe.pdf',
             ),
-          );
-        },
+          ),
+        ),
+      ),
+      DashboardCardData(
+        id: 'mail',
+        title: 'Mail',
+        icon: Icons.mail,
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const MailFragment()),
+        ),
+      ),
+      DashboardCardData(
+        id: 'wetter',
+        title: 'Wetter',
+        icon: Icons.cloud,
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const WetterFragment()),
+        ),
       ),
       DashboardCardData(
         id: 'einstellungen',
         title: 'Einstellungen',
         icon: Icons.settings,
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const EinstellungenFragment()),
-          );
-        },
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const EinstellungenFragment()),
+        ),
       ),
     ];
-
-    final allCards = [...primaryCards, ...otherCards];
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        title: Text(
-          'Endkundenbereich',
-          style: TextStyle(color: textColor),
-        ),
+        title: Text('Dashboard', style: TextStyle(color: textColor)),
         iconTheme: IconThemeData(color: textColor),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            tooltip: 'Einstellungen',
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const SettingsMenu()),
+            ),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(12),
-        child: GridView.count(
-          crossAxisCount: thema.gridCount,
-          crossAxisSpacing: 12,
-          mainAxisSpacing: 12,
-          children: allCards
-              .map((card) => DashboardCardCompact(
-                    data: card,
-                    background: backgroundColor,
-                    borderColor: borderColor,
-                  ))
-              .toList(),
+        child: Column(
+          children: [
+            // Willkommensnachricht & Hinweisfeld
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 8.0, left: 4.0),
+                child: Text(
+                  'Willkommen zurück!',
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.textPrimary(context),
+                      ),
+                ),
+              ),
+            ),
+            HinweisKachel(
+              text: hatUngeleseneNachrichten ? 'Offene Nachrichten' : 'Weitere Anleitung',
+              icon: hatUngeleseneNachrichten ? Icons.mark_email_unread : Icons.info_outline,
+              onTap: () {
+                if (hatUngeleseneNachrichten) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const MailFragment()),
+                  );
+                } else {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const PdfViewerFragment(
+                      title: 'Weitere Anleitung',
+                      pdfUrl: 'https://example.com/endkunde_anleitung.pdf',
+                    )),
+                  );
+                }
+              },
+            ),
+            const SizedBox(height: 12),
+            Expanded(
+              child: GridView.count(
+                crossAxisCount: thema.gridCount,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
+                children: cards
+                    .map((card) => DashboardCardCompact(
+                          data: card,
+                          background: backgroundColor,
+                          borderColor: borderColor,
+                        ))
+                    .toList(),
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -37,3 +37,9 @@ android {
 flutter {
     source = "../.."
 }
+// … deine bestehende Datei …
+
+dependencies {
+    // Google Play Billing Client
+    implementation("com.android.billingclient:billing:5.1.0")
+}

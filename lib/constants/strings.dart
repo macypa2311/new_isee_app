@@ -40,4 +40,8 @@ static const String diagnoseEndkundeEinleitung = 'Hier können Sie als Endkunde 
 static const String diagnoseEndkundeHinweis = 'Hinweis:';
 static const String diagnoseEndkundeBeschreibung = 'Diese Analyse ist eine vereinfachte Version. Für technische Details kontaktieren Sie bitte Ihren Installateur.';
 static const String fehlerAnalyseStarten = 'Analyse starten';
+static const String kameraKi = 'Kamera KI';
+static const String verbrauch = 'Verbrauchsanalyse';
+static const diagnose = 'Fehleranalyse';
+
 }

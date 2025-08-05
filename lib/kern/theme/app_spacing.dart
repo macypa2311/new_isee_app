@@ -1,5 +1,3 @@
-// lib/kern/theme/app_spacing.dart
-
 import 'package:flutter/material.dart';
 
 class AppSpacing {
@@ -14,4 +12,5 @@ class AppSpacing {
   static EdgeInsets innenVertikal(BuildContext context) => const EdgeInsets.symmetric(vertical: md);
 
   static const EdgeInsets screenPaddingAll = EdgeInsets.all(md);
+  static const EdgeInsets pagePaddingAll = EdgeInsets.all(md); // Ergänzt
 }

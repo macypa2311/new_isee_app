@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import 'kern/theme/thema_controller.dart';
 import 'kern/theme/design_system.dart';
@@ -10,7 +11,10 @@ import 'funktionen/startseite/landing_installateur.dart';
 import 'funktionen/startseite/landing_endkunde.dart';
 import 'funktionen/startseite/landing_planer.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('de_DE', null); // Wichtig für Terminseite
+
   runApp(
     MultiProvider(
       providers: [

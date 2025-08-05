@@ -10,8 +10,8 @@ class MailFragment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = AppFarben.background(context);
-    final textColor = AppFarben.textPrimary(context);
+    final bgColor = AppColors.background(context);
+    final textColor = AppColors.textPrimary(context);
 
     return Scaffold(
       appBar: AppBar(

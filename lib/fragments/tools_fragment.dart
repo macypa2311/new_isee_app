@@ -1,9 +1,20 @@
+// lib/fragments/tools_fragment.dart
+
 import 'package:flutter/material.dart';
+
+// Importe für alle Tools:
+import 'wirtschaftlichkeitsrechner_fragment.dart';
+import 'ertragssimulation_fragment.dart';
+import 'standortanalyse_fragment.dart';
+import 'lastprofil_fragment.dart';
+import 'speicherplanungs_fragment.dart';
+import 'foerdermittelpruefung_fragment.dart';  // ← hier importieren
+
 
 class ToolsFragment extends StatelessWidget {
   const ToolsFragment({super.key});
 
-  final List<Map<String, dynamic>> tools = const [
+  static const List<Map<String, dynamic>> tools = [
     {
       'title': 'Wirtschaftlichkeitsrechner',
       'icon': Icons.calculate,
@@ -30,14 +41,14 @@ class ToolsFragment extends StatelessWidget {
       'premium': false,
     },
     {
-      'title': 'Fördermittelprüfung',
+      'title': 'Fördermittelprüfung',  // ← Tool in der Liste
       'icon': Icons.euro_symbol,
-      'premium': true,
+      'premium': false,
     },
     {
       'title': 'Notfall-Checkliste',
       'icon': Icons.warning,
-      'premium': true,
+      'premium': false,
     },
   ];
 
@@ -62,9 +73,7 @@ class ToolsFragment extends StatelessWidget {
               if (isPremium) {
                 _showPremiumDialog(context);
               } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Tool "${item['title']}" geöffnet')),
-                );
+                _openTool(context, item['title'] as String);
               }
             },
             child: Container(
@@ -79,10 +88,16 @@ class ToolsFragment extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(item['icon'], size: 36, color: isPremium ? Colors.amber : Theme.of(context).colorScheme.primary),
+                  Icon(
+                    item['icon'] as IconData,
+                    size: 36,
+                    color: isPremium
+                        ? Colors.amber
+                        : Theme.of(context).colorScheme.primary,
+                  ),
                   const SizedBox(height: 12),
                   Text(
-                    item['title'],
+                    item['title'] as String,
                     textAlign: TextAlign.center,
                     style: const TextStyle(fontSize: 14),
                   ),
@@ -97,6 +112,43 @@ class ToolsFragment extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+
+  void _openTool(BuildContext context, String title) {
+    late Widget page;
+    switch (title) {
+      case 'Wirtschaftlichkeitsrechner':
+        page = const WirtschaftlichkeitsrechnerFragment();
+        break;
+      case 'Ertragssimulation':
+        page = const ErtragssimulationFragment();
+        break;
+      case 'Standortanalyse':
+        page = const StandortanalyseFragment();
+        break;
+      case 'Lastprofil hochladen':
+        page = const LastprofilFragment();
+        break;
+      case 'Speicherplanung':
+        page = const SpeicherplanungsFragment();
+        break;
+      case 'Fördermittelprüfung':                         // ← neu
+        page = const FoerdermittelpruefungFragment();    // ← hier öffnen
+        break;                                           // ← nicht vergessen
+      // case 'Notfall-Checkliste':
+      //   page = const NotfallChecklisteFragment();
+      //   break;
+      default:
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Tool „$title“ ist nicht verfügbar')),
+        );
+        return;
+    }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => page),
     );
   }
 

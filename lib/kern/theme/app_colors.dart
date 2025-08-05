@@ -1,7 +1,7 @@
 // lib/kern/theme/app_colors.dart
 import 'package:flutter/material.dart';
 
-class AppFarben {
+class AppColors {
   // Seed-Farbe zentral
   static const Color seed = Color(0xFF0066CC);
 

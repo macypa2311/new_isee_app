@@ -215,8 +215,8 @@ class _DiagnoseWPFragmentState extends State<DiagnoseWPFragment> {
         thema: thema,
       ),
       backgroundColor: thema.isDark
-          ? AppFarben.background(context)
-          : AppFarben.background(context),
+          ? AppColors.background(context)
+          : AppColors.background(context),
       body: Padding(
         padding: const EdgeInsets.all(AppSpacing.l),
         child: SingleChildScrollView(
@@ -231,7 +231,7 @@ class _DiagnoseWPFragmentState extends State<DiagnoseWPFragment> {
                 decoration: InputDecoration(
                   labelText: 'Hersteller wählen',
                   filled: true,
-                  fillColor: thema.isDark ? AppFarben.background(context) : AppFarben.background(context),
+                  fillColor: thema.isDark ? AppColors.background(context) : AppColors.background(context),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.sm)),
                 ),
                 onChanged: (value) {
@@ -259,7 +259,7 @@ class _DiagnoseWPFragmentState extends State<DiagnoseWPFragment> {
                 decoration: InputDecoration(
                   labelText: 'Modell wählen',
                   filled: true,
-                  fillColor: thema.isDark ? AppFarben.background(context) : AppFarben.background(context),
+                  fillColor: thema.isDark ? AppColors.background(context) : AppColors.background(context),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.sm)),
                 ),
                 onChanged: (value) {
@@ -281,7 +281,7 @@ class _DiagnoseWPFragmentState extends State<DiagnoseWPFragment> {
                 decoration: InputDecoration(
                   labelText: 'Fehlercode eingeben',
                   filled: true,
-                  fillColor: thema.isDark ? AppFarben.background(context) : AppFarben.background(context),
+                  fillColor: thema.isDark ? AppColors.background(context) : AppColors.background(context),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.sm)),
                 ),
                 keyboardType: TextInputType.text,

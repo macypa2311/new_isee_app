@@ -1,113 +1,213 @@
 import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart';
+import '../kern/theme/app_colors.dart';
+import '../kern/theme/app_spacing.dart';
+import '../kern/theme/app_text_styles.dart';
+import '../constants/strings.dart';
+import '../widgets/app_scaffold.dart';
 
-class VerbrauchFragment extends StatelessWidget {
+class VerbrauchFragment extends StatefulWidget {
   const VerbrauchFragment({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final cards = [
-      _VerbrauchCard(
-        title: 'Heute',
-        icon: Icons.bolt,
-        amount: '6.2 kWh',
-        difference: '+12 %',
-        color: Colors.orange,
-      ),
-      _VerbrauchCard(
-        title: 'Diese Woche',
-        icon: Icons.calendar_view_week,
-        amount: '34.7 kWh',
-        difference: '-8 %',
-        color: Colors.blue,
-      ),
-      _VerbrauchCard(
-        title: 'Diesen Monat',
-        icon: Icons.calendar_month,
-        amount: '145.3 kWh',
-        difference: '+3 %',
-        color: Colors.green,
-      ),
-    ];
+  State<VerbrauchFragment> createState() => _VerbrauchFragmentState();
+}
 
-    return Scaffold(
-      appBar: AppBar(title: const Text('Verbrauch')),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            const Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Dein Energieverbrauch',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ),
-            const SizedBox(height: 16),
-            Expanded(
-              child: ListView.separated(
-                itemCount: cards.length,
-                separatorBuilder: (_, __) => const SizedBox(height: 12),
-                itemBuilder: (_, index) => cards[index],
-              ),
-            ),
-            const SizedBox(height: 12),
-            const Text('Letzte Aktualisierung: vor 3 Minuten'),
-          ],
+class _VerbrauchFragmentState extends State<VerbrauchFragment> {
+  double heute = 6.2;
+  double woche = 34.7;
+  double monat = 145.3;
+
+  double heuteDiff = 12;
+  double wocheDiff = -8;
+  double monatDiff = 3;
+
+  void _bearbeiten(String titel, double initialWert, ValueChanged<double> onSave) {
+    final controller = TextEditingController(text: initialWert.toString());
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('$titel bearbeiten', style: AppTextStyles.ueberschrift(context)),
+        content: TextField(
+          controller: controller,
+          keyboardType: TextInputType.numberWithOptions(decimal: true),
+          decoration: const InputDecoration(suffixText: 'kWh'),
         ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Abbrechen'),
+          ),
+          TextButton(
+            onPressed: () {
+              final value = double.tryParse(controller.text.replaceAll(',', '.'));
+              if (value != null) {
+                onSave(value);
+                Navigator.pop(context);
+              }
+            },
+            child: const Text('Speichern'),
+          ),
+        ],
       ),
     );
   }
-}
 
-class _VerbrauchCard extends StatelessWidget {
-  final String title;
-  final String amount;
-  final String difference;
-  final IconData icon;
-  final Color color;
-
-  const _VerbrauchCard({
-    required this.title,
-    required this.amount,
-    required this.difference,
-    required this.icon,
-    required this.color,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final cardColor = Theme.of(context).cardColor;
+  Widget _verbrauchBox({
+    required IconData icon,
+    required String titel,
+    required double wert,
+    required double differenz,
+    required VoidCallback onEdit,
+  }) {
     return Container(
       padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
-        color: cardColor,
+        color: AppColors.card(context),
+        border: Border.all(color: AppColors.accent(context).withOpacity(0.2)),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.shade300),
       ),
       child: Row(
         children: [
-          CircleAvatar(
-            backgroundColor: color.withOpacity(0.15),
-            child: Icon(icon, color: color),
-          ),
+          Icon(icon, color: AppColors.accent(context), size: 32),
           const SizedBox(width: 16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-                Text(amount, style: const TextStyle(fontSize: 14)),
+                Text(titel, style: AppTextStyles.standard(context)),
+                const SizedBox(height: 4),
+                Text('${wert.toStringAsFixed(1)} kWh', style: AppTextStyles.fett(context)),
               ],
             ),
           ),
-          Text(
-            difference,
-            style: TextStyle(
-              color: difference.startsWith('+') ? Colors.red : Colors.green,
-              fontWeight: FontWeight.w600,
-            ),
+          Column(
+            children: [
+              Text(
+                '${differenz > 0 ? '+' : ''}${differenz.toStringAsFixed(0)} %',
+                style: AppTextStyles.klein(context).copyWith(
+                  color: differenz < 0 ? Colors.green : Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 8),
+              GestureDetector(
+                onTap: onEdit,
+                child: const Icon(Icons.edit, size: 18),
+              ),
+            ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _diagrammBox() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Verbrauchsdiagramm', style: AppTextStyles.ueberschrift(context)),
+        const SizedBox(height: 16),
+        AspectRatio(
+          aspectRatio: 1.6,
+          child: BarChart(
+            BarChartData(
+              alignment: BarChartAlignment.spaceAround,
+              maxY: 160,
+              barTouchData: BarTouchData(enabled: false),
+              titlesData: FlTitlesData(
+                show: true,
+                bottomTitles: AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: true,
+                    getTitlesWidget: (value, _) {
+                      switch (value.toInt()) {
+                        case 0:
+                          return const Text('Heute');
+                        case 1:
+                          return const Text('Woche');
+                        case 2:
+                          return const Text('Monat');
+                        default:
+                          return const SizedBox.shrink();
+                      }
+                    },
+                  ),
+                ),
+                leftTitles: AxisTitles(
+                  sideTitles: SideTitles(showTitles: false),
+                ),
+                rightTitles: AxisTitles(
+                  sideTitles: SideTitles(showTitles: false),
+                ),
+                topTitles: AxisTitles(
+                  sideTitles: SideTitles(showTitles: false),
+                ),
+              ),
+              gridData: FlGridData(show: false),
+              borderData: FlBorderData(show: false),
+              barGroups: [
+                BarChartGroupData(x: 0, barRods: [
+                  BarChartRodData(toY: heute, color: AppColors.accent(context), width: 16),
+                ]),
+                BarChartGroupData(x: 1, barRods: [
+                  BarChartRodData(toY: woche, color: AppColors.accent(context), width: 16),
+                ]),
+                BarChartGroupData(x: 2, barRods: [
+                  BarChartRodData(toY: monat, color: AppColors.accent(context), width: 16),
+                ]),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 16),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AppScaffold(
+      title: AppStrings.verbrauch,
+      child: SingleChildScrollView(
+        padding: AppSpacing.innenAll(context),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Dein Energieverbrauch', style: AppTextStyles.ueberschrift(context)),
+            const SizedBox(height: 24),
+            _verbrauchBox(
+              icon: Icons.flash_on,
+              titel: 'Heute',
+              wert: heute,
+              differenz: heuteDiff,
+              onEdit: () => _bearbeiten('Heute', heute, (wert) => setState(() => heute = wert)),
+            ),
+            _verbrauchBox(
+              icon: Icons.view_week,
+              titel: 'Diese Woche',
+              wert: woche,
+              differenz: wocheDiff,
+              onEdit: () => _bearbeiten('Diese Woche', woche, (wert) => setState(() => woche = wert)),
+            ),
+            _verbrauchBox(
+              icon: Icons.calendar_month,
+              titel: 'Diesen Monat',
+              wert: monat,
+              differenz: monatDiff,
+              onEdit: () => _bearbeiten('Diesen Monat', monat, (wert) => setState(() => monat = wert)),
+            ),
+            const SizedBox(height: 24),
+            _diagrammBox(),
+            const SizedBox(height: 16),
+            Text(
+              'Letzte Aktualisierung: vor 3 Minuten',
+              style: AppTextStyles.klein(context),
+            ),
+          ],
+        ),
       ),
     );
   }
